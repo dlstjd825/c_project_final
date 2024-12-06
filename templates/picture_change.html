@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Example</title>
+    <script defer src="static/js/change_id.js"></script> <!-- change_id.js 파일 포함 -->
+    <script defer src="static/js/change_password.js"></script> <!-- change_password.js 파일 포함 -->
+
+    <script defer src="static/js/name_simple.js"></script>
+    
+    <script defer src="static/js/picture_change.js"></script>
+
+    <style>
+        /* 기본 스타일 */
+        body {
+            margin: 0;
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .main {
+            display: flex; /* Flexbox 레이아웃 사용 */
+            height: 100vh; /* 화면 세로로 꽉 차게 높이 설정 */
+        }
+        /* 사이드바 디자인 */
+        .sidebar {
+            width: 20%; /* 사이드바 너비 */
+            padding: 15px;
+            border-right: 1px solid #ddd; /* 오른쪽 경계선 그림 */
+            position: fixed; /* 위치 고정 */
+            top: 0;
+            left: 0;
+            height: 100vh; /* 화면 세로로 꽉 차게 조정 */
+            display: flex;
+            flex-direction: column; /* 세로로 정렬 */
+            background-color: #f3f0e9; 
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
+
+        /* 로고 스타일 */
+        .logo {
+            display: flex;
+            align-items: center; /* 중앙 정렬 */
+            margin-bottom: 50px; 
+            gap: 10px; 
+        }
+        .logo img {
+            width: 50px; /* 로고 이미지 크기 */
+        }
+        
+        /*  버튼 스타일 */
+        .nav-buttons a {
+            display: block; /* 블록 요소로 설정 */
+            background: none;
+            text-decoration: none; 
+            color: #333; /* 글자 색 */
+            padding: 10px; 
+            font-weight: 600; /* 글자 두께 */
+            font-size: 19px; /* 글자 크기 */
+            transition: color 0.3s; /* 색상 변화 시 애니메이션 */
+        }
+        .nav-buttons a.active {
+            color: #fbbd08; /* 클릭된 버튼 색상 */
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            display: flex;
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        .search-input {
+            width: 70%; 
+            padding: 10px; 
+            font-size: 16px; 
+            border: 1px solid #ddd; /* 경계선 */
+            border-radius: 5px; /* 모서리 둥글기 */
+        }
+        .search-btn {
+            padding: 8px; 
+            border: none;
+            background-color: #FEE99C;
+            border-radius: 5px; 
+            cursor: pointer; /* 마우스 포인터 변경 */
+            color: #333;
+            font-weight: bold; 
+            transition: background-color 0.3s; /* 배경색 변화 시 애니메이션 */
+        }
+        .search-btn:hover {
+            background-color: #fbbd08; /* 마우스 올리면 배경색 변경 */
+        }
+        .content-wrapper {
+            margin-left: 20%; /* 왼쪽 여백 */
+            margin-right: 15%; /* 오른쪽 여백 */
+            padding: 20px 50px; 
+            box-sizing: border-box; 
+            overflow-y: auto; /* 세로 스크롤 가능 */
+            flex-grow: 1; 
+        }
+
+        /* 클래스 그리드 스타일 */
+        .grid-container {
+            display: grid; /* 그리드 레이아웃 사용 */
+            grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
+            gap: 20px; /* 그리드 아이템 간의 간격 */
+        }
+        .grid-item {
+            background-color: #f9f9f9; /* 아이템 배경색 */
+            border-radius: 10px; 
+            padding: 20px; 
+            text-align: center; 
+            cursor: pointer; /* 마우스 포인터 변경 */
+            transition: transform 0.2s; /* 변형 애니메이션 */
+            border: 1px solid #ddd; /* 경계선 */
+        }
+        .grid-item:hover {
+            background-color: #FEE99C; /* 마우스 올릴 시 배경색 변경 */
+            transform: scale(1.05); /* 마우스 올릴 시 크기 증가 */
+        }
+        /* .grid-item p {
+            margin: 10px 0 0; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #333;
+        } */
+
+        .grid-item img {
+            width: 100%; /* 이미지가 그리드 크기에 맞게 */
+            height: auto; /* 비율 유지 */
+            border-radius: 10px; /* 둥근 모서리 */
+            margin-bottom: 10px; /* 텍스트와 간격 */
+        }
+        .grid-item p {
+            margin: 0; /* 텍스트 여백 제거 */
+            font-size: 16px; /* 텍스트 크기 조정 */
+            text-align: center; /* 텍스트 정렬 */
+            color: #555; /* 텍스트 색상 */
+        }
+
+        /* 프로필 섹션 스타일 */
+        .profile {
+            width: 15%; 
+            padding: 15px; 
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh; 
+            display: flex;
+            flex-direction: column; 
+            background-color: #ffffff; 
+            z-index: 1000; 
+            align-items: center; 
+        }
+        .profile img {
+            border-radius: 50%; /* 원형 이미지 */
+            width: 120px; /* 이미지 너비 */
+            height: 120px; /* 이미지 높이 */
+            margin-bottom: 25px; /* 아래 여백 */
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column; 
+            gap: 5px; 
+            text-align: center; 
+        }
+        .profile-info .id {
+            font-size: 40px; 
+            font-weight: bold; 
+        }
+        .profile-info .description {
+            font-size: 14px; 
+            color: #666; 
+        }
+        .profile-info a {
+            font-size: 14px; 
+            text-decoration: none; 
+            color: #666; 
+        }
+        .profile-info a:hover {
+            color: #333; 
+        }
+        .profile-actions {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 400px; 
+            text-align: start; 
+        }
+        .profile-actions a {
+            text-decoration: none;
+            color: #666; 
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .profile-actions a:hover {
+            color: #333; 
+        }
+        /* 페이지 제목 스타일 */
+        .page-title {
+            font-size: 30px; 
+            font-weight: bold; 
+            margin-top: 50px;
+            margin-bottom: 0px; 
+        }
+        .page-subtitle {
+            font-size: 18px; 
+            color: #666; 
+            margin-bottom: 20px; 
+        }
+        .section-title {
+            font-size: 22px; 
+            font-weight: bold; 
+            margin: 110px 0 10px; 
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px; 
+            border-radius: 10px; 
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal input {
+            width: calc(100% - 22px); 
+            padding: 10px; 
+            font-size: 16px; 
+            margin-bottom: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+        .modal button {
+            padding: 10px 20px; 
+            border: none;
+            background-color: #fbbd08; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            color: #fff;
+            font-weight: bold; 
+            font-size: 16px; 
+            transition: background-color 0.3s; 
+        }
+        .modal button:hover {
+            background-color: #f39c12; 
+        }
+
+        .photo-selection {
+            margin-top: 30px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-content img {
+            width: 100%; /* 모달에 표시되는 이미지 크기 조정 */
+            max-width: 300px; /* 최대 크기 제한 */
+            border-radius: 10px; /* 둥근 모서리 */
+        }
+        .close {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 메인 레이아웃 -->
+    <div class="main">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <!-- 로고 -->
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo/logo2.png') }}" alt="HobbyHive">
+                <span style="font-size: 24px; font-weight: bold;"> HOBBYHIVE</span>
+            </div>
+            
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+                <a href="/class_page">클래스</a>
+                <a href="/main">커뮤니티</a>
+                <a href="/mypage" class="active">마이페이지</a>
+            </div>
+            <!-- 클래스 섹션 -->
+            <div>
+                <div class="page-title" id="userPageTitle"> </div>
+                <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
+            </div>
+        </div>
+        <!-- 콘텐츠 영역 -->
+        <div class="content-wrapper">
+            <!-- 프로필 섹션 -->
+            <div class="profile">
+                <img id="profile-picture" src="{{ url_for('static', filename='images/profile/default.png') }}" alt="Profile Picture">
+                <div class="profile-info">
+                    <a href="#"><span id="loggedInUser_simple">(id)</span></a>
+                    <!-- <a href="#">베이킹 꿈나무(수식어)</a> -->
+                </div>            
+                <div class="profile-actions">
+                    <!-- <a href="#">프로필 사진 수정</a> -->
+                    <a href="#" >프로필 사진 수정</a>
+                    <a href="#" id="change-id">아이디 변경</a>
+                    <a href="#" id="change-password">비밀번호 변경</a>
+                    <!-- <a href="#">즐겨찾기</a> -->
+                    <a href="/help">고객센터</a>
+                </div>
+            </div>
+
+            <!-- 사진 선택 섹션 (항상 표시) 이건 또 사진을 c_project 속 static에 넣어야 화면에 나옴. -->
+            <div class="photo-selection">
+                <h2>프로필 사진 수정</h2>
+                <div class="grid-container">
+                    <div class="grid-item" onclick="openModal('static/images/profile/guitar.png')">
+                        <img src="{{ url_for('static', filename='images/profile/guitar.png') }}" alt="Guitar" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Guitar</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/bike.png')">
+                        <img src="{{ url_for('static', filename='images/profile/bike.png') }}" alt="Bike" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Bike</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/art.png')">
+                        <img src="{{ url_for('static', filename='images/profile/art.png') }}" alt="Art" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Art</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/flower.png')">
+                        <img src="{{ url_for('static', filename='images/profile/flower.png') }}" alt="Flower" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Flower</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/pet.png')">
+                        <img src="{{ url_for('static', filename='images/profile/pet.png') }}" alt="Pet" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Pet</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/space.png')">
+                        <img src="{{ url_for('static', filename='images/profile/space.png') }}" alt="Space" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Space</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/book.png')">
+                        <img src="{{ url_for('static', filename='images/profile/book.png') }}" alt="Book" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Book</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/party.png')">
+                        <img src="{{ url_for('static', filename='images/profile/party.png') }}" alt="Party" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Party</p>
+                    </div>
+
+                    <div class="grid-item" onclick="openModal('static/images/profile/coding.png')">
+                        <img src="{{ url_for('static', filename='images/profile/coding.png') }}" alt="Coding" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Coding</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/nature.png')">
+                        <img src="{{ url_for('static', filename='images/profile/nature.png') }}" alt="Nature" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Nature</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/contest.png')">
+                        <img src="{{ url_for('static', filename='images/profile/contest.png') }}" alt="Contest" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Contest</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/study.png')">
+                        <img src="{{ url_for('static', filename='images/profile/study.png') }}" alt="Study" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Study</p>
+                    </div>
+                    <div class="grid-item" onclick="openModal('static/images/profile/default.png')">
+                        <img src="{{ url_for('static', filename='images/profile/default.png') }}" alt="Simple" style="width: 100%; height: auto; border-radius: 10px;">
+                        <p>Simple</p>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- 프로필 사진 변경 모달 -->
+                <div id="photoModal" class="modal" style="display: none;">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <h3>이 사진으로 프로필을</h3>
+                        <h3>변경하시겠습니까?</h3>
+                        <img id="modal-photo" src="" alt="Selected Photo" style="width: 100%; border-radius: 10px;">
+                        <button onclick="confirmPhotoChange()">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 아이디 변경 모달 -->
+        <div id="idModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>아이디 변경</h2>
+                <form id="idForm">
+                    <input type="text" id="oldIdInput" placeholder="현재 아이디 입력" required>
+                    <input type="text" id="newIdInput" placeholder="새 아이디 입력" required>
+                    <button type="submit">변경</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 비밀번호 변경 모달 -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>비밀번호 변경</h2>
+                <form id="passwordForm">
+                    <input type="text" id="idInput" placeholder="아이디 입력" required>
+                    <input type="password" id="oldPasswordInput" placeholder="기존 비밀번호 확인" required>
+                    <input type="password" id="newPasswordInput" placeholder="새 비밀번호 입력" required>
+                    <input type="password" id="confirmNewPasswordInput" placeholder="새 비밀번호 확인" required>
+                    <button type="submit">변경</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // 아이디 변경 모달 열기
+            document.getElementById("change-id").onclick = function() {
+                document.getElementById("idModal").style.display = "block";
+            }
+
+            // 비밀번호 변경 모달 열기
+            document.getElementById("change-password").onclick = function() {
+                document.getElementById("passwordModal").style.display = "block";
+            }
+
+            // 모달 닫기
+            var closeButtons = document.getElementsByClassName("close");
+            for (var i = 0; i < closeButtons.length; i++) {
+                closeButtons[i].onclick = function() {
+                    this.parentElement.parentElement.style.display = "none";
+                }
+            }
+
+            // 모달 바깥 클릭 시 닫기
+            window.onclick = function(event) {
+                if (event.target == document.getElementById("idModal")) {
+                    document.getElementById("idModal").style.display = "none";
+                } else if (event.target == document.getElementById("passwordModal")) {
+                    document.getElementById("passwordModal").style.display = "none";
+                }
+            }
+        </script>
+        </body>
+        </html>

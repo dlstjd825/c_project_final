@@ -1,0 +1,131 @@
+/* 페이지의 기본 스타일 설정 */
+body {
+    font-family: 'Gothic A1', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 메인 제목 스타일 */
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+
+/* 컨테이너 스타일 설정 */
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 4%;
+    margin-top: 30px;
+}
+
+/* 좌측, 우측 섹션 스타일 설정 */
+.left-section, .right-section {
+    width: 48%;
+    height: 700px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 섹션 헤더 스타일 설정 */
+.section-header {
+    background-color: #fee99c;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+/* 테이블 컨테이너 스타일 설정 */
+.table-container {
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* 테이블 스타일 설정 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* 테이블 셀 스타일 설정 */
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* 테이블 헤더 스타일 설정 */
+th {
+    position: sticky;
+    top: 0;
+    background-color: #fee99c;
+    color: #000;
+    z-index: 1;
+}
+
+/* 버튼 스타일 설정 */
+.button-link, .accept-button, .reject-button, .logout-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 열람 버튼 스타일 */
+.button-link {
+    background-color: #ddd;
+    color: black;
+}
+
+.button-link:hover {
+    background-color: #bbb;
+}
+
+/* 수락 버튼 스타일 */
+.accept-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.accept-button:hover {
+    background-color: #45a049;
+}
+
+/* 거절 버튼 스타일 */
+.reject-button {
+    background-color: #FF6347;
+    color: white;
+}
+
+.reject-button:hover {
+    background-color: #FF4500;
+}
+
+/* 로그아웃 버튼 스타일 */
+.logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #FF6347;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.logout-button:hover {
+    background-color: #FF4500;
+}

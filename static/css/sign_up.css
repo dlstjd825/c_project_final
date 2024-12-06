@@ -1,0 +1,677 @@
+/* 전체 페이지 스타일 설정 */
+body {
+    font-family: 'Gothic A1', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 회원가입 전체 컨테이너 스타일 */
+.larrow-signup-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 버튼 컨테이너 스타일 */
+.larrow-container {
+    width: 50px;
+    padding-left: 0;
+    padding-bottom: 10px;
+    padding-right: 0;
+    cursor: pointer;
+}
+
+/* 회원가입 메인 컨테이너 스타일 */
+.signup-container {
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 버튼 이미지 스타일 */
+.larrow-container img {
+    width: 60px;
+    height: auto;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+/* 뒤로가기 버튼 이미지 hover 시 스타일 */
+.larrow-container img:hover {
+    opacity: 1;
+}
+
+/* 왼쪽 섹션 스타일 (회원가입 폼) */
+.left-section {
+    width: 50%;
+}
+
+/* 회원가입 헤더 스타일 */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 헤더 이미지 스타일 */
+.header img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+/* 헤더 텍스트 스타일 */
+.header h1 {
+    font-weight: 900;
+    font-size: 35px;
+    margin: 0;
+}
+
+/* 멘티/멘토 선택 그룹 스타일 */
+.left-section .radio-group {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+}
+
+/* 그룹 레이블 스타일 */
+.left-section .radio-group label {
+    margin-right: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 선택된 레이블 활성화 스타일 */
+.left-section .radio-group .active {
+    color: #fbbd08; 
+}
+
+/* 그룹 레이블 hover 시 스타일 */
+.left-section .radio-group label:hover {
+    color: #fbbd08;
+    transition: 0.3s;
+}
+
+/* 아이디 중복 확인 섹션 스타일 */
+.id_duplication {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+/* 아이디 입력 필드 스타일 */
+.id_duplication input[type="text"] {
+    width: 60%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 아이디 중복 확인 버튼 스타일 */
+.id_duplication button {
+    width: 40%;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 비밀번호 및 기타 입력 필드 스타일 */
+.left-section input[type="password"],
+.left-section input[type="text"] { 
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* 생년월일 레이블 스타일 */
+.birth-label {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* 생년월일 입력 필드 그룹 스타일 */
+.birth-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 생년월일 입력 필드 스타일 */
+.birth-group input[type="number"] {
+    width: 30%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 비밀번호 경고 메시지 스타일 */
+.password-warning {
+    color: red;
+    font-size: 15px;
+    display: none;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+/* 회원가입 버튼 스타일 */
+.left-section button {
+    padding: 15px 15px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 회원가입 버튼 hover 시 스타일 */
+.left-section button:hover {
+    background-color: #bfb89f;
+}
+
+/* 성별 선택 버튼 그룹 스타일 */
+.gender-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* 성별 선택 버튼 스타일 */
+.gender-group button {
+    width: 47%;
+    background-color: #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 선택된 성별 버튼 활성화 스타일 */
+.gender-group button.active {
+    background-color: #FEE99C;
+}
+
+/* 성별 선택 버튼 hover 시 스타일 */
+.gender-group button:hover {
+    background-color: #FEE99C;
+}
+
+/* 오른쪽 섹션 스타일 (파일 업로드 및 설명) */
+.right-section {
+    width: 43%;
+    text-align: left;
+}
+
+/* 오른쪽 섹션 제목 스타일 */
+.right-section h2 {
+    margin-top: 15px;
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+/* 오른쪽 섹션 설명 텍스트 스타일 */
+.right-section p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* 버튼 컨테이너 스타일 (파일 업로드 및 회원가입 신청 버튼) */
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* 오른쪽 섹션의 파일 업로드 버튼 스타일 */
+.right-section button {
+    padding: 15px 30px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+}
+
+/* 오른쪽 섹션의 파일 업로드 버튼 hover 시 스타일 */
+.right-section button:hover {
+    background-color: #bfb89f;
+}
+
+/* 업로드된 파일 정보 및 취소 버튼 스타일 */
+.files {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+/* 파일 링크 스타일 */
+.files a {
+    text-decoration: underline;
+    color: #565657;
+    margin-right: 20px;
+}
+
+/* 파일 업로드 취소 버튼 스타일 */
+.files button {
+    padding: 3px 7px !important;
+    font-size: 15px !important;
+    background-color: #b9b9b9 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
+
+/* 파일 업로드 취소 버튼 hover 시 스타일 */
+.files button:hover {
+    background-color: #909090 !important;
+}
+
+/* 파일 업로드 링크 컨테이너 스타일 */
+#file-link-container {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* 회원가입 신청 버튼 스타일 */
+#signup-submit-button {
+    padding: 15px 30px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    width: 80%;
+    margin-top: 80px;
+}
+
+/* 회원가입 신청 버튼 hover 시 스타일 */
+#signup-submit-button:hover {
+    background-color: #bfb89f;
+}
+
+/* 전체 페이지 스타일 설정 */
+body {
+    font-family: 'Gothic A1', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 회원가입 전체 컨테이너 스타일 */
+.larrow-signup-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 버튼 컨테이너 스타일 */
+.larrow-container {
+    width: 50px;
+    padding-left: 0;
+    padding-bottom: 10px;
+    padding-right: 0;
+    cursor: pointer;
+}
+
+/* 회원가입 메인 컨테이너 스타일 */
+.signup-container {
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 버튼 이미지 스타일 */
+.larrow-container img {
+    width: 60px;
+    height: auto;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+/* 뒤로가기 버튼 이미지 hover 시 스타일 */
+.larrow-container img:hover {
+    opacity: 1;
+}
+
+/* 왼쪽 섹션 스타일 (회원가입 폼) */
+.left-section {
+    width: 50%;
+}
+
+/* 회원가입 헤더 스타일 */
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 헤더 이미지 스타일 */
+.header img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+/* 헤더 텍스트 스타일 */
+.header h1 {
+    font-weight: 900;
+    font-size: 35px;
+    margin: 0;
+}
+
+/* 멘티/멘토 선택 라디오 그룹 스타일 */
+.left-section .radio-group {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+}
+
+/* 라디오 그룹 레이블 스타일 */
+.left-section .radio-group label {
+    margin-right: 20px;
+    font-weight: 700;
+    font-size: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 선택된 라디오 버튼 활성화 스타일 */
+.left-section .radio-group .active {
+    color: #fbbd08; 
+}
+
+/* 라디오 그룹 레이블 hover 시 스타일 */
+.left-section .radio-group label:hover {
+    color: #fbbd08;
+    transition: 0.3s;
+}
+
+/* 아이디 중복 확인 섹션 스타일 */
+.id_duplication {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+/* 아이디 입력 필드 스타일 */
+.id_duplication input[type="text"] {
+    width: 60%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* 아이디 중복 확인 버튼 스타일 */
+.id_duplication button {
+    width: 40%;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* 비밀번호 및 기타 입력 필드 스타일 */
+.left-section input[type="password"],
+.left-section input[type="text"] { 
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* 생년월일 레이블 스타일 */
+.birth-label {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* 생년월일 입력 필드 그룹 스타일 */
+.birth-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* 생년월일 입력 필드 스타일 */
+.birth-group input[type="number"] {
+    width: 30%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 비밀번호 경고 메시지 스타일 */
+.password-warning {
+    color: red;
+    font-size: 15px;
+    display: none;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+/* 회원가입 버튼 스타일 */
+.left-section button {
+    padding: 15px 15px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* 회원가입 버튼 hover 시 스타일 */
+.left-section button:hover {
+    background-color: #bfb89f;
+}
+
+/* 성별 선택 버튼 그룹 스타일 */
+.gender-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* 성별 선택 버튼 스타일 */
+.gender-group button {
+    width: 47%;
+    background-color: #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 선택된 성별 버튼 활성화 스타일 */
+.gender-group button.active {
+    background-color: #FEE99C;
+}
+
+/* 성별 선택 버튼 hover 시 스타일 */
+.gender-group button:hover {
+    background-color: #FEE99C;
+}
+
+/* 오른쪽 섹션 스타일 (파일 업로드 및 설명) */
+.right-section {
+    width: 43%;
+    text-align: left;
+}
+
+/* 오른쪽 섹션 제목 스타일 */
+.right-section h2 {
+    margin-top: 15px;
+    font-size: 35px;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+/* 오른쪽 섹션 설명 텍스트 스타일 */
+.right-section p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* 버튼 컨테이너 스타일 (파일 업로드 및 회원가입 신청 버튼) */
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* 오른쪽 섹션의 파일 업로드 버튼 스타일 */
+.right-section button {
+    padding: 15px 30px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+}
+
+/* 오른쪽 섹션의 파일 업로드 버튼 hover 시 스타일 */
+.right-section button:hover {
+    background-color: #bfb89f;
+}
+
+/* 업로드된 파일 정보 및 취소 버튼 스타일 */
+.files {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+/* 파일 링크 스타일 */
+.files a {
+    text-decoration: underline;
+    color: #565657;
+    margin-right: 20px;
+}
+
+/* 파일 업로드 취소 버튼 스타일 */
+.files button {
+    padding: 3px 7px !important;
+    font-size: 15px !important;
+    background-color: #b9b9b9 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
+
+/* 파일 업로드 취소 버튼 hover 시 스타일 */
+.files button:hover {
+    background-color: #909090 !important;
+}
+
+/* 파일 업로드 링크 컨테이너 스타일 */
+#file-link-container {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* 회원가입 신청 버튼 스타일 */
+#signup-submit-button {
+    padding: 15px 30px;
+    background-color: #FEE99C;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    width: 80%;
+    margin-top: 80px;
+}
+
+/* 회원가입 신청 버튼 hover 시 스타일 */
+#signup-submit-button:hover {
+    background-color: #bfb89f;
+}

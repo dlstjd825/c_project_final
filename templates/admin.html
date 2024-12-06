@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOBBYHIVE Admin</title>
+    <link rel="stylesheet" href="static/css/admin.css">
+</head>
+<body>
+    <!-- 로그아웃 버튼 -->
+    <button class="logout-button" onclick="window.location.href='/admin_logout'">로그아웃</button>
+
+    <!-- 메인 제목 -->
+    <h1>HOBBYHIVE <small>admin</small></h1>
+
+    <!-- 멘티와 멘토 신청 현황을 보여주는 컨테이너 -->
+    <div class="container">
+        <!-- 멘티 섹션 -->
+        <div class="left-section">
+            <div class="section-header">멘티</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>신청일</th>
+                            <th>제출 서류</th>
+                            <th>수락</th>
+                            <th>거절</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 멘티 신청 데이터가 있을 경우 반복 출력 -->
+                        {% if signup_data %}
+                            {% for signup in signup_data if signup.role == "mentee" %}
+                            <tr id="row-{{ signup.id }}">
+                                <td>{{ signup.id }}</td>
+                                <td>{{ signup.apply_date }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                                </td>
+                                <td>
+                                    <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                                </td>
+                                <td>
+                                    <button class="reject-button" onclick="rejectSignup('{{ signup.id }}')">거절</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <!-- 멘티 신청 데이터가 없을 경우 출력 -->
+                            <tr>
+                                <td colspan="5">승인 대기 중인 멘티가 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 멘토 섹션 -->
+        <div class="right-section">
+            <div class="section-header">멘토</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>아이디</th>
+                            <th>신청일</th>
+                            <th>제출 서류</th>
+                            <th>수락</th>
+                            <th>거절</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 멘토 신청 데이터가 있을 경우 반복 출력 -->
+                        {% if signup_data %}
+                            {% for signup in signup_data if signup.role == "mentor" %}
+                            <tr id="row-{{ signup.id }}">
+                                <td>{{ signup.id }}</td>
+                                <td>{{ signup.apply_date }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_zip', user_id=signup.id) }}" class="button-link">열람</a>
+                                </td>
+                                <td>
+                                    <button class="accept-button" onclick="acceptSignup('{{ signup.id }}')">수락</button>
+                                </td>
+                                <td>
+                                    <button class="reject-button" onclick="rejectSignup('{{ signup.id }}')">거절</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <!-- 멘토 신청 데이터가 없을 경우 출력 -->
+                            <tr>
+                                <td colspan="5">승인 대기 중인 멘토가 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="static/js/admin.js"></script>
+</html>

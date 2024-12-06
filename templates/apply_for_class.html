@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 신청하기</title>
+    <style>
+        body {
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .apply-form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .apply-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .apply-form input[type="text"],
+        .apply-form input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .apply-form button {
+            background-color: #FEE99C;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+        .apply-form button:hover {
+            background-color: #fbbd08;
+        }
+    </style>
+</head>
+<body>
+    <!-- 클래스 신청 폼을 포함하는 메인 컨테이너 -->
+    <div class="apply-form">
+        
+        <!-- 신청하려는 클래스 제목 표시 -->
+        <h2>{{ class_title }} 신청하기</h2>
+        
+        <!-- 신청 폼 => POST 요청으로 서버에 데이터 전송 -->
+        <form action="/apply_class/{{ class_title }}" method="POST">
+            
+            <!-- 클래스 제목을 숨김 필드로 전송 (서버에서 확인하기용임.) -->
+            <input type="hidden" name="class_title" value="{{ class_title }}">
+            
+            <!-- 신청자 이름 입력 필드 -->
+            <label for="applicant_name">신청자 이름</label>
+            <input type="text" id="applicant_name" name="applicant_name" required>
+            
+            <!-- 이메일 입력 필드 -->
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" required>
+            
+            <!-- 신청 완료 버튼 -->
+            <button type="submit">신청 완료</button>
+        </form>        
+    </div>
+</body>
+</html>

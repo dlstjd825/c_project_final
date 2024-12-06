@@ -1,0 +1,7 @@
+ID: dlstjd
+PW: dlstjd1
+Status: pending
+Role: mentor
+Name: 정인성
+Birthday: 2005-08-25
+Gender: m

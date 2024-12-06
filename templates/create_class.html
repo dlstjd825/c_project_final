@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 생성하기</title>
+    <style>
+        body {
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 100vh;
+            padding-top: 50px;
+        }
+
+        .create-class-form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            position: relative;
+        }
+
+        .create-class-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .create-class-form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .create-class-form input[type="text"],
+        .create-class-form input[type="number"],
+        .create-class-form textarea,
+        .create-class-form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .create-class-form input[type="file"] {
+            margin-top: 10px;
+        }
+
+        .create-class-form button {
+            background-color: #FEE99C;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .create-class-form button:hover {
+            background-color: #fbbd08;
+        }
+
+        .back-button {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #FEE99C;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .back-button:hover {
+            background-color: #fbbd08;
+        }
+    </style>
+<body>
+    <!-- 클래스 생성 폼을 포함하는 메인 컨테이너 -->
+    <div class="create-class-form">
+        
+        <!-- 이전 페이지로 돌아가는 버튼 -->
+        <button class="back-button" onclick="window.history.back();">&larr; 이전 페이지로</button>
+        
+        <!-- 페이지 제목 -->
+        <h2>클래스 생성하기</h2>
+        
+        <!-- 클래스 생성 폼 => POST 요청으로 서버에 데이터 전송 & 이미지 파일 업로드 지원 -->
+        <form action="/create_class" method="POST" enctype="multipart/form-data">
+            
+            <!-- 클래스 제목 입력 필드 -->
+            <label for="class_title">클래스 제목</label>
+            <input type="text" id="class_title" name="class_title" required>
+
+            <!-- 멘토 이름 입력 필드 -->
+            <label for="mentor_id">멘토 아이디</label>
+            <input type="text" id="mentor_id" name="mentor_id" required>
+
+            <!-- 지역 입력 필드 -->
+            <label for="location">지역</label>
+            <input type="text" id="location" name="location" required>
+
+            <!-- 클래스 소개 입력 필드 -->
+            <label for="class_description">클래스 소개</label>
+            <textarea id="class_description" name="class_description" rows="4" required></textarea>
+
+            <!-- 수강료 입력 필드(숫자 조건 추가함) -->
+            <label for="price">수강료 (원)</label>
+            <input type="number" id="price" name="price" required>
+
+            <!-- 수업 방식 선택 필드 (온라인 또는 오프라인 선택) -->
+            <label for="mode">수업 방식</label>
+            <select id="mode" name="mode" required>
+                <option value="online">온라인</option>
+                <option value="offline">오프라인</option>
+            </select>
+
+            <!-- 수강 인원 입력 필드 (최대 수강 인원 숫자만 허용) -->
+            <label for="capacity">수강 인원 (최대 인원)</label>
+            <input type="number" id="capacity" name="capacity" required>
+
+            <!-- 클래스 대표 이미지 업로드 필드 (이미지 파일만 허용) -->
+            <label for="class_image">대표 이미지 업로드</label>
+            <input type="file" id="class_image" name="class_image" accept="image/*" required>
+            
+            <!-- 태그 입력 필드-->
+            <label for="tags">대표 태그 한 개 입력</label>
+            <input type="text" id="tags" name="tags">
+
+            <!-- 클래스 생성 버튼 -->
+            <button type="submit">클래스 생성</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Example</title>
+    <script defer src="static/js/change_id.js"></script> <!-- change_id.js 파일 포함 -->
+    <script defer src="static/js/change_password.js"></script> <!-- change_password.js 파일 포함 -->
+
+    <script defer src="static/js/name.js"></script>
+    <script defer src="static/js/picture_change.js"></script>
+
+    <style>
+        /* 기본 스타일 */
+        body {
+            margin: 0;
+            font-family: 'Gothic A1', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .main {
+            display: flex; /* Flexbox 레이아웃 사용 */
+            height: 100vh; /* 화면 세로로 꽉 차게 높이 설정 */
+        }
+        /* 사이드바 디자인 */
+        .sidebar {
+            width: 20%; /* 사이드바 너비 */
+            padding: 15px;
+            border-right: 1px solid #ddd; /* 오른쪽 경계선 그림 */
+            position: fixed; /* 위치 고정 */
+            top: 0;
+            left: 0;
+            height: 100vh; /* 화면 세로로 꽉 차게 조정 */
+            display: flex;
+            flex-direction: column; /* 세로로 정렬 */
+            background-color: #f3f0e9; 
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
+
+        /* 로고 스타일 */
+        .logo {
+            display: flex;
+            align-items: center; /* 중앙 정렬 */
+            margin-bottom: 50px; 
+            gap: 10px; 
+        }
+        .logo img {
+            width: 50px; /* 로고 이미지 크기 */
+        }
+        
+        /*  버튼 스타일 */
+        .nav-buttons a {
+            display: block; /* 블록 요소로 설정 */
+            background: none;
+            text-decoration: none; 
+            color: #333; /* 글자 색 */
+            padding: 10px; 
+            font-weight: 600; /* 글자 두께 */
+            font-size: 19px; /* 글자 크기 */
+            transition: color 0.3s; /* 색상 변화 시 애니메이션 */
+        }
+        .nav-buttons a.active {
+            color: #fbbd08; /* 클릭된 버튼 색상 */
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            display: flex;
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        .search-input {
+            width: 70%; 
+            padding: 10px; 
+            font-size: 16px; 
+            border: 1px solid #ddd; /* 경계선 */
+            border-radius: 5px; /* 모서리 둥글기 */
+        }
+        .search-btn {
+            padding: 8px; 
+            border: none;
+            background-color: #FEE99C;
+            border-radius: 5px; 
+            cursor: pointer; /* 마우스 포인터 변경 */
+            color: #333;
+            font-weight: bold; 
+            transition: background-color 0.3s; /* 배경색 변화 시 애니메이션 */
+        }
+        .search-btn:hover {
+            background-color: #fbbd08; /* 마우스 올리면 배경색 변경 */
+        }
+        .content-wrapper {
+            margin-left: 20%; /* 왼쪽 여백 */
+            margin-right: 15%; /* 오른쪽 여백 */
+            padding: 20px 50px; 
+            box-sizing: border-box; 
+            overflow-y: auto; /* 세로 스크롤 가능 */
+            flex-grow: 1; 
+        }
+
+        /* 클래스 그리드 스타일 */
+        .grid-container {
+            display: grid; /* 그리드 레이아웃 사용 */
+            grid-template-columns: repeat(2, 1fr); /* 2열 그리드 */
+            gap: 20px; /* 그리드 아이템 간의 간격 */
+        }
+        .grid-item {
+            background-color: #f9f9f9; /* 아이템 배경색 */
+            border-radius: 10px; 
+            padding: 20px; 
+            text-align: center; 
+            cursor: pointer; /* 마우스 포인터 변경 */
+            transition: transform 0.2s; /* 변형 애니메이션 */
+            border: 1px solid #ddd; /* 경계선 */
+        }
+        .grid-item:hover {
+            background-color: #FEE99C; /* 마우스 올릴 시 배경색 변경 */
+            transform: scale(1.05); /* 마우스 올릴 시 크기 증가 */
+        }
+        .grid-item p {
+            margin: 10px 0 0; 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #333;
+        }
+        /* 프로필 섹션 스타일 */
+        .profile {
+            width: 15%; 
+            padding: 15px; 
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh; 
+            display: flex;
+            flex-direction: column; 
+            background-color: #ffffff; 
+            z-index: 1000; 
+            align-items: center; 
+        }
+        .profile img {
+            border-radius: 50%; /* 원형 이미지 */
+            width: 120px; /* 이미지 너비 */
+            height: 120px; /* 이미지 높이 */
+            margin-bottom: 25px; /* 아래 여백 */
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column; 
+            gap: 5px; 
+            text-align: center; 
+        }
+        .profile-info .id {
+            font-size: 20px; 
+            font-weight: bold; 
+        }
+        .profile-info .description {
+            font-size: 14px; 
+            color: #666; 
+        }
+        .profile-info a {
+            font-size: 14px; 
+            text-decoration: none; 
+            color: #666; 
+        }
+        .profile-info a:hover {
+            color: #333; 
+        }
+        .profile-actions {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px; 
+            margin-top: 400px; 
+            text-align: start; 
+        }
+        .profile-actions a {
+            text-decoration: none;
+            color: #666; 
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .profile-actions a:hover {
+            color: #333; 
+        }
+        /* 페이지 제목 스타일 */
+        .page-title {
+            font-size: 30px; 
+            font-weight: bold; 
+            margin-bottom: 50px; 
+        }
+        .page-subtitle {
+            font-size: 18px; 
+            color: #666; 
+            margin-bottom: 20px; 
+        }
+        .section-title {
+            font-size: 22px; 
+            font-weight: bold; 
+            margin: 110px 0 10px; 
+        }
+
+        .phone-number {
+            font-size: 24px; 
+            font-weight: bold; 
+            margin-top: 50px; 
+           
+        }
+
+
+
+        /* 모달 스타일 */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px; 
+            border-radius: 10px; 
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal input {
+            width: calc(100% - 22px); 
+            padding: 10px; 
+            font-size: 16px; 
+            margin-bottom: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+        }
+        .modal button {
+            padding: 10px 20px; 
+            border: none;
+            background-color: #fbbd08; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            color: #fff;
+            font-weight: bold; 
+            font-size: 16px; 
+            transition: background-color 0.3s; 
+        }
+        .modal button:hover {
+            background-color: #f39c12; 
+        }
+    </style>
+</head>
+<body>
+    <!-- 메인 레이아웃 -->
+    <div class="main">
+        <!-- 사이드바 -->
+        <div class="sidebar">
+            <!-- 로고 -->
+            <div class="logo">
+                <img src="{{ url_for('static', filename='images/logo/logo2.png') }}" alt="HobbyHive">
+                <span style="font-size: 24px; font-weight: bold;"> HOBBYHIVE</span>
+            </div>
+            <!-- 검색창 -->
+             
+            <!-- 네비게이션 버튼 -->
+            <div class="nav-buttons">
+                <a href="/class_page">클래스</a>
+                <a href="/main">커뮤니티</a>
+                <a href="/mypage" class="active">마이페이지</a>
+            </div>
+        </div>
+            <!-- 프로필 섹션 -->
+            <div class="profile">
+                <img id="profile-picture" src="{{ url_for('static', filename='images/default.png') }}" alt="Profile Picture">
+                <div class="profile-info">
+                    <a href="#"><span id="loggedInUser">(id)</span></a>
+                    <!-- <a href="#">베이킹 꿈나무(수식어)</a> -->
+                </div>                
+                <div class="profile-actions">
+                    <a href="/picture_change">프로필 사진 수정</a>
+                    <a href="#" id="change-id">아이디 변경</a>
+                    <a href="#" id="change-password">비밀번호 변경</a>
+                    <!-- <a href="#">즐겨찾기</a> -->
+                    <a href="#">고객센터</a>
+                </div>
+            </div>
+            <!-- 클래스 섹션 -->
+            <div>
+                <div class="page-title" id="userPageTitle">(id)의 페이지</div>
+                <!-- <div class="page-subtitle">베이킹 꿈나무(수식어) 한줄소개</div> -->
+            </div>
+
+             <!-- 폰번호띄우기 섹션 -->
+             <div class="content-wrapper">
+                <div class="left-logo">
+                    <img src="{{ url_for('static', filename='images/logo/logo1.png') }}" alt="Logo" class="logo-image" />
+                </div>
+                <div class="info-card">
+                    <h2 class="info-title">문의사항 안내</h2>
+                    <p class="info-description">문의사항이 있으시다면</p>
+                    <p class="info-description">아래의 번호로 전화주세요.</p>
+                    <div class="contact-details">
+                        <p class="phone-number">📞 010-1234-1234</p>
+                        <p class="contact-hours">평일: 10:00AM ~ 20:00PM<br>토요일: 10:00AM ~ 17:00PM</p>
+                        <p class="email-contact">📧 이메일 상담: hobbyhive@naver.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <style>
+                .content-wrapper {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    padding: 20px;
+                }
+            
+                .left-logo {
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            
+                .logo-image {
+                    width: 250px; /* 이미지 너비 */
+                    height: 200px; /* 이미지 높이 */
+                    margin-bottom: 25px; /* 아래 여백 */
+                }
+            
+                .info-card {
+                    flex: 2;
+                    background-color: #f9f9f9;
+                    padding: 30px;
+                    border-radius: 10px;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    margin-left: 80px;
+                    margin-right: 50px;
+                    text-align: left; /* 왼쪽 정렬로 변경 */
+                }
+            
+                .info-title {
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #333;
+                    margin-bottom: 15px;
+                }
+            
+                .info-description {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    color: #666;
+                }
+            
+                .contact-details {
+                    font-size: 16px;
+                    line-height: 1.6;
+                }
+            
+                .phone-number {
+                    font-size: 22px;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+            
+                .contact-hours,
+                .email-contact {
+                    font-size: 16px;
+                    color: #555;
+                }
+            </style>
+        </div>
+    </div>
+        <!-- 아이디 변경 모달 -->
+        <div id="idModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>아이디 변경</h2>
+                <form id="idForm">
+                    <input type="text" id="oldIdInput" placeholder="현재 아이디 입력" required>
+                    <input type="text" id="newIdInput" placeholder="새 아이디 입력" required>
+                    <button type="submit">변경</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- 비밀번호 변경 모달 -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>비밀번호 변경</h2>
+                <form id="passwordForm">
+                    <input type="text" id="idInput  " placeholder="아이디 입력" required>
+                    <input type="password" id="oldPasswordInput" placeholder="기존 비밀번호 확인" required>
+                    <input type="password" id="newPasswordInput" placeholder="새 비밀번호 입력" required>
+                    <input type="password" id="confirmNewPasswordInput" placeholder="새 비밀번호 확인" required>
+                    <button type="submit">변경</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            // 아이디 변경 모달 열기
+            document.getElementById("change-id").onclick = function() {
+                document.getElementById("idModal").style.display = "block";
+            }
+
+            // 비밀번호 변경 모달 열기
+            document.getElementById("change-password").onclick = function() {
+                document.getElementById("passwordModal").style.display = "block";
+            }
+
+            // 모달 닫기
+            var closeButtons = document.getElementsByClassName("close");
+            for (var i = 0; i < closeButtons.length; i++) {
+                closeButtons[i].onclick = function() {
+                    this.parentElement.parentElement.style.display = "none";
+                }
+            }
+
+            // 모달 바깥 클릭 시 닫기
+            window.onclick = function(event) {
+                if (event.target == document.getElementById("idModal")) {
+                    document.getElementById("idModal").style.display = "none";
+                } else if (event.target == document.getElementById("passwordModal")) {
+                    document.getElementById("passwordModal").style.display = "none";
+                }
+            }
+        </script>
+        </body>
+        </html>
