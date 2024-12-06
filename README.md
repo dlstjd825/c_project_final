@@ -45,10 +45,9 @@
 
 - 추가:
 - 친절한 코드 빌드 방법 설명
-- 
-- 위의 코드를 실행하면 실행하고 있는 폴더와 동일한 폴더에 static 파일 하나가 생성됨.
-- 새로 생성되는 static파일 속에는 빈 upload랑 user폴더가 있는데, 그 두 개 폴더 안에다가 넣지 말고 그냥 새로 생성된 static 폴더 안에다가 user.csv파일을 복붙해서 넣어야함.
-- user.csv는 원래있던 static 파일 속에 넣어놨음. 경로로 설명하면 c_project/static/user.csv
+  - 위의 코드를 실행하면 실행하고 있는 폴더와 동일한 폴더에 static 파일 하나가 생성됨.
+  - 새로 생성되는 static파일 속에는 빈 upload랑 user폴더가 있는데, 그 두 개 폴더 안에다가 넣지 말고 그냥 새로 생성된 static 폴더 안에다가 user.csv파일을 복붙해서 넣어야함.
+  - user.csv는 원래있던 static 파일 속에 넣어놨음. 경로로 설명하면 c_project/static/user.csv
 
 - user.csv 파일을 옮긴 이후엔 sln 파일 빌드해서 파일 경로들 싹 바꿔줘야하는데, vscode에선 실행하는 법 모르겠고, visualstudio들어가서 c_project/C_function/C_fuction.sln 열면 안에 c파일들 있는거 보일거임.
 - ctrl shift b 누르면 dll파일 다시 생성되서 경로 본인 컴퓨터로 바뀔거임.
