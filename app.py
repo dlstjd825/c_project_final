@@ -1,3 +1,4 @@
+#MySQL 관련 코드 - 정기용
 # 필요한 라이브러리 import
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session, send_file
 import ctypes
@@ -117,8 +118,7 @@ def export_mysql_to_csv(csv_file_path, table_name):
             with open(csv_file_path, 'w', encoding='utf-8', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(rows)  # 데이터만 작성
-
-            print(f"테이블 '{table_name}' 데이터를 '{csv_file_path}' 파일로 성공적으로 내보냈습니다.")
+                
     except FileNotFoundError:
         print(f"지정된 경로에 파일을 생성할 수 없습니다: {csv_file_path}")
     except pymysql.MySQLError as e:
@@ -126,7 +126,6 @@ def export_mysql_to_csv(csv_file_path, table_name):
     finally:
         if 'connection' in locals() and connection:
             connection.close()
-
 
 table_name_users = 'users'  # MySQL 테이블 이름
 table_name_classes = 'classes'
@@ -144,6 +143,7 @@ def export_sql_csv() :
     export_mysql_to_csv(community_posts_csv_file_path,table_name_community_posts)
     export_mysql_to_csv(likes_csv_file_path,table_name_likes)
 
+export_sql_csv()
 
 # 로그인 페이지 -> 실행되면 login.html 실행
 @app.route('/')
@@ -523,7 +523,7 @@ def create_class_form():
 @app.route('/create_class', methods=['POST'])
 def create_class():
     try:
-        # 폼 데이터 가져오기
+        # 클래스 정보 추출
         class_title = request.form['class_title']
         mentor_id = request.form['mentor_id']
         location = request.form['location']
@@ -534,18 +534,25 @@ def create_class():
         tags = request.form['tags']
         image = request.files['class_image']
 
-        # 이미지 저장
-
+        # 이미지 저장 경로 설정 & 저장
         image_filename = image.filename
         image_path = os.path.join('images/class_image', image_filename).replace("\\", "/")
         image.save(os.path.join('static', image_path))
- 
 
-        current_applicants = 0
+        current_applicants = 0  # 신청 인원 초기값 0으로 설정
 
-        with open('static/classes.csv', 'a', encoding='utf-8') as csvfile:
-            csvfile.write(f"{class_title},{mentor_id},{location},{class_description},"
-                        f"{price},{mode},{capacity},{current_applicants},{image_path},{tags}\n")
+        # C DLL을 사용하여 클래스 정보 저장
+        result = c_function.save_class_info(
+            class_title.encode('utf-8'),
+            mentor_id.encode('utf-8'),
+            location.encode('utf-8'),
+            class_description.encode('utf-8'),
+            price.encode('utf-8'),
+            mode.encode('utf-8'),
+            capacity.encode('utf-8'),
+            image_path.encode('utf-8'),
+            tags.encode('utf-8')
+        )
 
         # MySQL 데이터 저장
         try:
@@ -744,7 +751,6 @@ def get_user_info():
 
     user_info = {
         "id": user_id.decode('utf-8'),  # 바이트형식에서 문자열로 변환
-        #"subtitle": "베이킹 꿈나무"  # 이 부분은 실제 DB에서 가져오는 값을 사용해야 합니다.
     }
     return jsonify(user_info)
 
@@ -756,7 +762,6 @@ def get_user_info_simple():
 
     user_info = {
         "id": user_id.decode('utf-8'),  # 바이트형식에서 문자열로 변환
-        #"subtitle": "베이킹 꿈나무"  # 이 부분은 실제 DB에서 가져오는 값을 사용해야 합니다.
     }
     return jsonify(user_info)
 
@@ -909,9 +914,6 @@ def change_id():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"success": False, "message": "Unexpected error occurred"})
-
-
-
 
 
 @app.route('/change_password', methods=['POST'])
@@ -1318,8 +1320,7 @@ def delete_post(image_path):
 
     return '', 200
 
-
-# to 기용. 여기 댓글 삭제하는 부분. mysql로 여기 구현해줘잉~~ from 인성
+#댓글 삭제
 @app.route('/delete_comment', methods=['POST'])
 def delete_comment():
     try:
