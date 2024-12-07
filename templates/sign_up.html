@@ -1,0 +1,93 @@
+<!--정인성-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/sign_up.css">
+    <title>회원가입</title>
+</head>
+    <div class="larrow-signup-container">
+        <!-- 뒤로가기 버튼 컨테이너 -->
+        <div class="larrow-container">
+            <img src="static/images/larrow.png" alt="뒤로가기">
+        </div>
+
+        <!-- 회원가입 메인 컨테이너 -->
+        <div class="signup-container">
+            <!-- 왼쪽 섹션 (회원가입 폼) -->
+            <div class="left-section">
+                <!-- 회원가입 헤더 -->
+                <div class="header">
+                    <img src="static/images/logo/logo2.png" alt="로고">
+                    <h1>회원가입</h1>
+                </div>
+
+                <!-- 멘티/멘토 선택 라디오 그룹 -->
+                <div class="radio-group">
+                    <label id="mentee-label" class="mentee active">멘티</label>
+                    <label id="mentor-label" class="mentor">멘토</label>
+                </div>
+
+                <!-- 아이디 중복 확인 섹션 -->
+                <div class="id_duplication">
+                    <input type="text" id="id-input" placeholder="아이디">
+                    <button id="duplicate-check-button">중복 확인</button>
+                </div>
+
+                <!-- 비밀번호 입력 및 확인 필드 -->
+                <input type="password" id="password" placeholder="비밀번호">
+                <input type="password" id="password-confirm" placeholder="비밀번호 확인">
+                <div id="password-warning" class="password-warning">비밀번호가 일치하지 않습니다!</div>
+                
+                <!-- 이름 입력 필드 -->
+                <input type="text" placeholder="이름">
+
+                <!-- 생년월일 입력 섹션 -->
+                <div class="birth-label">생년월일</div>
+                <div class="birth-group">
+                    <input type="number" id="birth-year" placeholder="연" min="1900" max="2100">
+                    <input type="number" id="birth-month" placeholder="월" min="1" max="12">
+                    <input type="number" id="birth-day" placeholder="일" min="1" max="31">
+                </div>
+
+                <!-- 성별 선택 섹션 -->
+                <div class="gender-group">
+                    <button id="male-button" class="active">남자</button>
+                    <button id="female-button">여자</button>
+                </div>
+            </div>
+
+            <!-- 오른쪽 섹션 (파일 업로드 및 회원가입 신청 버튼) -->
+            <div class="right-section" id="right-section">
+                <!-- 학적 확인 제목 및 설명 -->
+                <h2 id="right-section-title">학적 확인</h2>
+                <p id="right-section-description">
+                    학적 정보를 인증할 수 있는 파일을 올려주세요!<br>
+                    ex) 학생증, 재학 증명서, 학교 포털사이트 로그인 화면 등<br>
+                    >파일명이 영어인 사진 파일 한 개만 업로드해주세요!!!
+                </p>
+
+                <!-- 파일 업로드 버튼 및 파일 업로드 입력 필드 -->
+                <div class="button-container">
+                    <button id="upload-button">파일 올리기</button>
+                    <input type="file" id="file-upload" style="display:none;" multiple>
+                </div>
+
+                <!-- 업로드된 파일 목록을 표시할 컨테이너 -->
+                <div id="file-link-container"></div>
+
+                <!-- 회원가입 신청 버튼 -->
+                <div class="button-container">
+                    <button id="signup-submit-button">회원가입 신청</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="static/js/sign_up.js"></script>
+</html>

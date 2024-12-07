@@ -1,0 +1,79 @@
+/*임수빈*/
+body {
+    font-family: 'Gothic A1', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.create-class-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    position: relative;
+}
+
+.create-class-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.create-class-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.create-class-form input[type="text"],
+.create-class-form input[type="number"],
+.create-class-form textarea,
+.create-class-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.create-class-form input[type="file"] {
+    margin-top: 10px;
+}
+
+.create-class-form button {
+    background-color: #FEE99C;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.create-class-form button:hover {
+    background-color: #fbbd08;
+}
+
+.back-button {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background-color: #FEE99C;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.back-button:hover {
+    background-color: #fbbd08;
+}

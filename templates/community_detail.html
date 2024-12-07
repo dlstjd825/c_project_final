@@ -1,0 +1,210 @@
+<!--우재연-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 팝업</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/community_detail.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="popup-container">
+
+    <div class="popup">
+        <div class="popup-image">
+            <img src="{{ url_for('static', filename=post.image_path) }}" alt="게시글 이미지">
+        </div>
+        <div class="popup-content">
+            <div class="popup-header">
+                <img id="profile-picture" src="{{ session.get('profile_pic', '/static/images/profile/default.png') }}" alt="프로필 사진">
+                <div>
+                    <p class="username">{{ post.user_id }}</p>
+                </div>
+            </div>
+            
+            <div class="popup-body">
+                <p>{{ post.content }}</p>
+            </div>
+            
+            <!-- 댓글 표시 -->
+            <div class="popup-comments" id="comments">
+                {% for comment in comments %}
+                    <div class="comment">
+                        <strong>{{ comment['user'] }}:</strong> {{ comment['text'] }}
+                        {% if user_id == comment['user'] %}
+                            <button class="delete-comment-button" 
+                                    data-comment-id="{{ comment['text'] }}" 
+                                    data-post-id="{{ post.image_path }}">
+                                댓글 삭제
+                            </button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="popup-footer">
+                {% if session.get('user_id').decode('utf-8') == post.user_id %}
+                    <button id="deletePostButton" class="delete-post-button">게시글 삭제</button>
+                {% endif %}
+                <button class="like-button">
+                    {% if liked %}
+                        <i class="fas fa-heart" style="color: red;"></i> <!-- 좋아요 상태 유지 -->
+                    {% else %}
+                        <i class="far fa-heart" style="color: gray;"></i> <!-- 좋아요 안한 상태 -->
+                    {% endif %}
+                </button>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" id="commentInput" placeholder="댓글을 입력하세요...">
+                    <button class="comment-button" id="commentButton">댓글 작성</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="close-button">&times;</div>
+</div>
+
+<script>
+    // 프로필 불러오기
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch('/get-profile-picture-post')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const profilePicture = document.getElementById("profile-picture");
+                    profilePicture.src = data.photo; // 프로필 사진 경로 설정
+                } else {
+                    console.error(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching profile picture:", error);
+            });
+    });
+
+    // 게시글 삭제 버튼 이벤트
+    const deletePostButton = document.getElementById('deletePostButton');
+    if (deletePostButton) {
+        deletePostButton.addEventListener('click', () => {
+            fetch('/delete_post/{{ post.image_path }}', {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("게시글이 삭제되었습니다.");
+                    window.location.href = '/main'; // 커뮤니티 메인 페이지로 이동
+                } else {
+                    alert("게시글 삭제에 실패했습니다.");
+                }
+            });
+        });
+    }
+    
+    // 댓글 삭제 이벤트
+    document.getElementById('comments').addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-comment-button')) {
+        const button = event.target;
+        const commentId = button.getAttribute('data-comment-id'); // 댓글 ID
+        const postId = button.getAttribute('data-post-id'); // 게시글 ID
+
+        console.log("Deleting comment with ID:", commentId);
+
+        if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
+            fetch('/delete_comment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    comment_text: commentId,
+                    image_path: postId
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("댓글이 삭제되었습니다.");
+                    location.reload();
+                } else if (response.status === 400) {
+                    alert("요청이 잘못되었습니다. 다시 시도해주세요.");
+                } else {
+                    alert("댓글 삭제에 실패했습니다.");
+                }
+            });
+        }
+    }
+});
+
+    
+    // 좋아요 버튼 이벤트
+    const likeButton = document.querySelector('.like-button');
+    const likeIcon = likeButton.querySelector('i');
+
+    likeButton.addEventListener('click', () => {
+        const userId = "{{ session.get('user_id', '') }}"; // 세션에 저장된 user_id 가져오기
+        if (!userId) {
+            alert("로그인이 필요합니다. 로그인 후 좋아요를 눌러주세요.");
+            return; // user_id가 없으면 좋아요 요청 보내지 않음
+        }
+
+        if (likeIcon.classList.contains('far')) {
+            likeIcon.classList.remove('far');
+            likeIcon.classList.add('fas');
+        } else {
+            likeIcon.classList.remove('fas');
+            likeIcon.classList.add('far');
+        }
+
+        // 서버에 좋아요 요청 보내기
+        fetch('/like_post', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                image_path: "{{ post.image_path }}"
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                if (response.status === 403) {
+                    alert("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
+                } else {
+                    alert("좋아요 요청에 실패했습니다.");
+                }
+            }
+        });
+    });
+
+    // 댓글 작성 이벤트
+    const commentButton = document.getElementById('commentButton');
+    const commentInput = document.getElementById('commentInput');
+
+    commentButton.addEventListener('click', () => {
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+            fetch('/add_comment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    user: "{{ session.get('user_id', '익명') }}",
+                    text: commentText,
+                    post_id: "{{ post.image_path }}"
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("댓글이 추가되었습니다.");
+                    location.reload();
+                } else {
+                    alert("댓글 추가에 실패했습니다.");
+                }
+            });
+        }
+    });
+
+    // 팝업 닫기 버튼 이벤트
+    document.querySelector('.close-button').addEventListener('click', () => {
+        window.location.href = '/main';  // 커뮤니티 메인 페이지로 이동
+    });
+</script>
+
+</body>
+</html>
